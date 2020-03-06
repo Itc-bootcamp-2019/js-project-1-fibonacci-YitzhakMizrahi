@@ -10,8 +10,6 @@
   height: 79px;
   left: 164px;
   top: 100px;
-  font-style: normal;
-  font-weight: normal;
   font-size: 72px;
   line-height: 79px;
   color: #373a3c;
@@ -22,8 +20,6 @@
   position: absolute;
   left: 169px;
   top: 236px;
-  font-style: normal;
-  font-weight: normal;
   font-size: 24px;
   color: #373a3c;
 }
@@ -44,5 +40,4 @@
 
 .col {
   padding-right: 0px !important;
-  font-family: open;
 }
