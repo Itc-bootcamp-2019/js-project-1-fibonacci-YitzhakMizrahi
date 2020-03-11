@@ -15,34 +15,44 @@
     />
   </head>
   <body>
-    <div class="title">Fibonacci Calculator</div>
-    <form class="input-form" action="">
-      <div class="row">
-        <div class="col-5 col-input-text">
-          <label for="fibonacci" class="input-text d-flex"
-            >The Fibonacci Of
-          </label>
+    <div class="container-fluid">
+      <div class="row"><div class="title">Fibonacci Calculator</div></div>
+      <form class="input-form" action="">
+        <div class="row">
+          <div class="col-3 col-input-text">
+            <label for="fibonacci" class="input-text d-flex"
+              >The Fibonacci Of
+            </label>
+          </div>
+          <div class="col-1 col-input-form d-flex jusify-content-start">
+            <input
+              type="number"
+              placeholder="#"
+              name="input"
+              id="fibInput"
+              class="form-control d-flex justify-content-start"
+            />
+          </div>
+          <div class="col-1">
+            <input
+              type="button"
+              id="submitButton"
+              onclick="fibCalc();"
+              value="Is"
+              class="col-input-button btn btn-primary d-flex justify-content-start"
+            />
+          </div>
+          <div class="col-6 result" id="fibResult">
+            <span class="error-42" id="fibError"></span>
+          </div>
         </div>
-        <div class="col-2 col-input-form">
-          <input
-            type="text"
-            placeholder="#"
-            name="input"
-            id="fiboInput"
-            class="form-control d-flex justify-content-start"
-          />
-        </div>
-        <div class="col-1">
-          <input
-            type="button"
-            onclick="fiboCalc();"
-            value="Is"
-            class="col-input-button btn btn-primary d-flex justify-content-start"
-          />
-        </div>
-        <div class="col-4 result" id="fiboResult"></div>
+      </form>
+      <div id="fibFiftyOrMore"></div>
+      <div class="row result-container">
+        <div class="col-2 result-title no-margin">Results</div>
+        <div class="col-1 loader-container"><div id="loader"></div></div>
       </div>
-    </form>
+    </div>
 
     <!-- JS Scripts  -->
     <script
