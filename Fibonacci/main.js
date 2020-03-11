@@ -5,11 +5,10 @@
 
 function fibCalc() {
   let input = document.getElementById("fibInput").value;
+  clearResults();
+  showLoader();
+  hideLoader();
   if (input >= 50) {
-    clearResults();
-    showLoader();
-    hideLoader();
-
     const fibFiftyOrMore = document.getElementById("fibFiftyOrMore");
     fibFiftyOrMore.classList.add("fib-fifty-or-more");
     fibFiftyOrMore.innerText = "Can't be larger than 50";
@@ -18,9 +17,6 @@ function fibCalc() {
     fibInput.classList.add("form-error");
   } else {
     fetch(`http://localhost:5050/fibonacci/${input}`).then(response => {
-      clearResults();
-      showLoader();
-      hideLoader();
       if (response.ok) {
         response.json().then(data => {
           document.getElementById("fibResult").innerText = data.result;
