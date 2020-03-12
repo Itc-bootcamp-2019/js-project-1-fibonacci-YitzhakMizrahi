@@ -8,6 +8,7 @@ function fibCalc() {
   clearResults();
   showLoader();
   hideLoader();
+  getResults();
   if (input >= 50) {
     const fibFiftyOrMore = document.getElementById("fibFiftyOrMore");
     fibFiftyOrMore.classList.add("fib-fifty-or-more");
@@ -58,4 +59,27 @@ function hideLoader() {
     const loader = document.getElementById("loader");
     loader.classList.remove("loader");
   }, 2000);
+}
+
+function getResults() {
+  fetch(`http://localhost:5050/getFibonacciResults`).then(response => {
+    response.json().then(data => {
+      let results = data.results;
+
+      for (let i = 0; i < results.length; i++) {
+        let myDate = new Date();
+        myDate.toISOString(`${results[i].createdDate}`);
+
+        const resultItemWrapper = document.createElement("div");
+        resultItemWrapper.classList.add("results-wrapper");
+
+        const resultsNumber = document.createElement("div");
+        resultsNumber.classList.add("results-item");
+        resultsNumber.innerHTML = `The Fibonacci of <b>${results[i].number}</b> is <b>${results[i].result}</b>. Calculated at: ${myDate}`;
+
+        resultItemWrapper.append(resultsNumber);
+        fibSavedResults.append(resultItemWrapper);
+      }
+    });
+  });
 }

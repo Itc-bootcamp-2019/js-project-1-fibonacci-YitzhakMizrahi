@@ -114,3 +114,17 @@
   border-color: #d9534f !important;
   color: #d9534f !important;
 }
+
+#fibSavedResults {
+  position: absolute;
+  width: 1088px;
+  height: 24px;
+  left: 164px;
+  top: 459px;
+}
+
+.results-wrapper {
+  border-bottom: 1px solid black;
+  padding: 10px 0px;
+  width: 65%;
+}
