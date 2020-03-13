@@ -1,37 +1,55 @@
-// fibCalc = receives an input from the user
-// If the input is < 50 sends the input to the server for calculation
-// Receives the result from the server and prints it to the user
-// If the input is >= 50 does not send it to the server and prints an error
-
+// fibCalc gets activated onclick() when the user clicks on the (Is) button
 function fibCalc() {
+  //Receives n for fibonacci from the input form
   let input = document.getElementById("fibInput").value;
+  //Receives input for the calculation to be saved or not (checkbox)
+  let checkBox = document.getElementById("checkbox");
   clearResults();
   showLoader();
   hideLoader();
-  getResults();
   if (input >= 50) {
+    //Prints error mesage under input form if the input is >= 50 and add css to it
     const fibFiftyOrMore = document.getElementById("fibFiftyOrMore");
     fibFiftyOrMore.classList.add("fib-fifty-or-more");
     fibFiftyOrMore.innerText = "Can't be larger than 50";
-
+    // Adds css class to the input form when this error occurs
     const fibInput = document.getElementById("fibInput");
     fibInput.classList.add("form-error");
   } else {
-    fetch(`http://localhost:5050/fibonacci/${input}`).then(response => {
-      if (response.ok) {
-        response.json().then(data => {
-          document.getElementById("fibResult").innerText = data.result;
-        });
-      } else {
-        response.text().then(text => {
-          document.getElementById("fibError").innerText = text;
-        });
-      }
-    });
+    if (checkBox.checked === true) {
+      // Executes when checkbox is checked
+      fibCalcRemote(input);
+    } else {
+      // Executes when checkbox is not checked
+      let fibonacciLocal = fibCalcLocal(input);
+      document.getElementById("fibResult").innerText = `${fibonacciLocal}`;
+    }
   }
 }
-
-//Clears the previous results for all possibilities
+//Function to calculate fibonacci via remote server
+function fibCalcRemote(input) {
+  fetch(`http://localhost:5050/fibonacci/${input}`).then(response => {
+    if (response.ok) {
+      response.json().then(data => {
+        document.getElementById("fibResult").innerText = data.result;
+        getResults();
+      });
+    } else {
+      response.text().then(text => {
+        document.getElementById("fibError").innerText = text;
+      });
+    }
+  });
+}
+//Function to calculate fibonacci locally
+function fibCalcLocal(input) {
+  if (input < 2) {
+    return input;
+  } else {
+    return (input = fibCalcLocal(input - 1) + fibCalcLocal(input - 2));
+  }
+}
+//Clears the previous results for different possibilities in order to maintain a clean ui
 function clearResults() {
   const fibFiftyOrMore = document.getElementById("fibFiftyOrMore");
   fibFiftyOrMore.classList.remove("fib-fifty-or-more");
@@ -44,7 +62,6 @@ function clearResults() {
     "fibResult"
   ).innerHTML = `<div class="col-6 result" id="fibResult"><span class="col-6 error-42" id="fibError"></span></div>`;
 }
-
 //Adds css class to present Loader
 function showLoader() {
   setTimeout(function() {
@@ -52,15 +69,14 @@ function showLoader() {
     loader.classList.add("loader");
   }, 0);
 }
-
-//Removes Loader css class in 2 seconds
+//Hides Loader
 function hideLoader() {
   setTimeout(function() {
     const loader = document.getElementById("loader");
     loader.classList.remove("loader");
   }, 2000);
 }
-
+//Function to receive saved calculations from the server
 function getResults() {
   fetch(`http://localhost:5050/getFibonacciResults`).then(response => {
     response.json().then(data => {
