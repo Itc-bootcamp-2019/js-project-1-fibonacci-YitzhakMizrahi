@@ -118,7 +118,7 @@ function getResults() {
         resultItem.classList.add("results-item");
         resultItem.innerHTML = `The Fibonacci of <b>${results[i].number}</b> is <b>${results[i].result}</b>. Calculated at: ${createdDate}`;
 
-        resultItemWrapper.append(resultsNumber);
+        resultItemWrapper.append(resultItem);
         fibSavedResults.append(resultItemWrapper);
       }
     });
