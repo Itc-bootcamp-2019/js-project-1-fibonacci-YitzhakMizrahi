@@ -16,7 +16,9 @@
   </head>
   <body>
     <div class="container-fluid">
+      <!-- Title -->
       <div class="row"><div class="title">Fibonacci Calculator</div></div>
+      <!-- Input Field -->
       <form class="input-form" action="">
         <div class="row">
           <div class="col-3 col-input-text">
@@ -52,10 +54,19 @@
         </div>
       </form>
       <div id="fibFiftyOrMore"></div>
+      <!-- Input Field Ends -->
+      <!-- Results Section -->
       <div class="row result-container">
         <div class="col-2 result-title no-margin">Results</div>
         <div class="col-1 loader-container"><div id="loader"></div></div>
       </div>
+      <select class="form-control bg-light custom-select col-1" id="select">
+        <option id="sortBy" hidden>Sort by</option>
+        <option id="numberAsc">Number Asc</option>
+        <option id="numberDesc">Number Desc</option>
+        <option id="dateAsc">Date Asc</option>
+        <option id="dateDesc">Date Desc</option>
+      </select>
       <div id="fibSavedResults" class="fibSavedResults"></div>
     </div>
 

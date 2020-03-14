@@ -8,7 +8,7 @@ function fibCalc() {
   showLoader();
   hideLoader();
   if (input >= 50) {
-    //Prints error mesage under input form if the input is >= 50 and add css to it
+    //Prints error mesage under input form if the input is >= 50 and adds css to it
     const fibFiftyOrMore = document.getElementById("fibFiftyOrMore");
     fibFiftyOrMore.classList.add("fib-fifty-or-more");
     fibFiftyOrMore.innerText = "Can't be larger than 50";
@@ -78,20 +78,45 @@ function hideLoader() {
 }
 //Function to receive saved calculations from the server
 function getResults() {
+  //Clears result history
+  document.getElementById("fibSavedResults").innerHTML = "";
+  let sortBy = document.getElementById("sortBy");
   fetch(`http://localhost:5050/getFibonacciResults`).then(response => {
     response.json().then(data => {
       let results = data.results;
+      //Executes if sortBy is selected
+      if (sortBy.selected) {
+        results.sort(function(a, b) {
+          return new Date(b.createdDate) - new Date(a.createdDate);
+        });
+      } else if (numberAsc.selected) {
+        results.sort(function(a, b) {
+          return a.number - b.number;
+        });
+      } else if (numberDesc.selected) {
+        results.sort(function(a, b) {
+          return b.number - a.number;
+        });
+      } else if (dateAsc.selected) {
+        results.sort(function(a, b) {
+          return new Date(a.createdDate) - new Date(b.createdDate);
+        });
+      } else if (dateDesc.selected) {
+        results.sort(function(a, b) {
+          return new Date(b.createdDate) - new Date(a.createdDate);
+        });
+      }
 
       for (let i = 0; i < results.length; i++) {
-        let myDate = new Date();
-        myDate.toISOString(`${results[i].createdDate}`);
+        let createdDate = new Date();
+        createdDate.toISOString(`${results[i].createdDate}`);
 
         const resultItemWrapper = document.createElement("div");
         resultItemWrapper.classList.add("results-wrapper");
 
-        const resultsNumber = document.createElement("div");
-        resultsNumber.classList.add("results-item");
-        resultsNumber.innerHTML = `The Fibonacci of <b>${results[i].number}</b> is <b>${results[i].result}</b>. Calculated at: ${myDate}`;
+        const resultItem = document.createElement("div");
+        resultItem.classList.add("results-item");
+        resultItem.innerHTML = `The Fibonacci of <b>${results[i].number}</b> is <b>${results[i].result}</b>. Calculated at: ${createdDate}`;
 
         resultItemWrapper.append(resultsNumber);
         fibSavedResults.append(resultItemWrapper);

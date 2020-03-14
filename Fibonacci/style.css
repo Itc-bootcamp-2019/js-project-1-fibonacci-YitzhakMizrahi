@@ -120,7 +120,7 @@
   width: 1088px;
   height: 24px;
   left: 164px;
-  top: 459px;
+  top: 479px;
 }
 
 .results-wrapper {
@@ -131,4 +131,16 @@
 
 .save-calc {
   font-size: 16px;
+}
+
+.custom-select {
+  position: absolute;
+  width: 122px;
+  height: 38px;
+  left: 149px;
+  top: 435px;
+  background: #e6e6e6;
+  border: 1px solid #cccccc;
+  box-sizing: border-box;
+  border-radius: 4px;
 }
